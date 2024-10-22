@@ -14,15 +14,15 @@ def loading_spinner():
         time.sleep(0.1)
         sys.stdout.write('\b')
 
-def run_ollama(model_name, command, execute_flag=False, filename=None):
+def run_ollama(model_name, command, execute_flag=False, filename=None, file_content=None):
     global stop_spinner_event
     stop_spinner_event = threading.Event()
 
     spinner_thread = threading.Thread(target=loading_spinner)
     spinner_thread.start()
 
-    if filename:
-        full_command = f"File: {filename}\nCommand: {command.strip()}"
+    if filename and file_content:
+        full_command = f"File: {filename}\nContent:\n{file_content}\n\nCommand: {command.strip()}"
     else:
         full_command = f"Command: {command.strip()}"
 
@@ -62,4 +62,13 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    run_ollama(args.model, args.command, args.execute, filename=args.file)
+    file_content = None
+    if args.file:
+        try:
+            with open(args.file, 'r') as f:
+                file_content = f.read()
+        except FileNotFoundError:
+            print(f"Error: The file '{args.file}' does not exist.")
+            sys.exit(1)
+
+    run_ollama(args.model, args.command, args.execute, filename=args.file, file_content=file_content)
