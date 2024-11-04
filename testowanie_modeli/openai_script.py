@@ -54,7 +54,6 @@ def run_openai(command, execute_flag=False, filename=None):
         subprocess.run(model_output, shell=True)
 
 
-# Main parser
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Run commands with OpenAI and optionally execute output.")
