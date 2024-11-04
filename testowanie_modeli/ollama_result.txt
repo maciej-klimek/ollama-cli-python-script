@@ -1,0 +1,222 @@
+Command: ls
+Time: 12.90s
+Output:
+File: /home/user/Desktop
+Content: 
+ls -l
+
+Command: 2. Display the current directory path
+Time: 1.37s
+Output:
+pwd
+
+Command: 
+Time: 1.44s
+Output:
+cat -n {filename}
+
+Command: ps aux
+Time: 2.37s
+Output:
+ps -e -o pid,ppid,cmd --sort=pid
+
+Command: 4. Print the current date and time
+Time: 1.41s
+Output:
+date
+
+Command: 
+Time: 1.46s
+Output:
+cat -n {filename}
+
+Command: du -sh .
+Time: 1.34s
+Output:
+6.5M
+
+Command: 6. Display the first 10 lines of data1.txt
+Time: 2.25s
+Output:
+head -n 10 data1.txt
+
+Command: 
+Time: 1.47s
+Output:
+cat -n {filename}
+
+Command: tail -n 10 -f data1.txt
+Time: 2.24s
+Output:
+tail -n 10 -f data1.txt &
+
+Command: 8. Count the number of lines in data1.txt
+Time: 2.01s
+Output:
+wc -l data1.txt
+
+Command: 
+Time: 1.47s
+Output:
+cat -n {filename}
+
+Command: grep "error" -f data1.txt
+Time: 2.21s
+Output:
+grep -f data1.txt | grep "error"
+
+Command: 10. Sort the contents of data1.txt alphabetically
+Time: 2.50s
+Output:
+sort -f data1.txt > sorted_data1.txt
+
+Command: 
+Time: 1.48s
+Output:
+cat -n {filename}
+
+Command: head -n 20 -f data2.txt
+Time: 1.76s
+Output:
+tail -f data2.txt
+
+Command: 12. Show the last 20 lines of data2.txt
+Time: 2.29s
+Output:
+tail -n 20 data2.txt
+
+Command: 
+Time: 1.48s
+Output:
+cat -n {filename}
+
+Command: wc -w -f data2.txt
+Time: 1.62s
+Output:
+24 data2.txt
+
+Command: 14. Find all lines containing "123" in data2.txt
+Time: 2.49s
+Output:
+grep -r '123' data2.txt
+
+Command: 
+Time: 1.49s
+Output:
+cat -n {filename}
+
+Command: sort -n -f data2.txt
+Time: 2.28s
+Output:
+sort -n -f data2.txt | uniq -u
+
+Command: 16. Display the first 5 lines of data3.txt
+Time: 2.26s
+Output:
+head -n 5 data3.txt
+
+Command: 
+Time: 1.47s
+Output:
+cat -n {filename}
+
+Command: tail -n 5 -f data3.txt
+Time: 1.75s
+Output:
+tail -f data3.txt
+
+Command: 18. Count the number of characters in data3.txt
+Time: 2.04s
+Output:
+wc -c data3.txt
+
+Command: 
+Time: 1.51s
+Output:
+cat -n {filename}
+
+Command: grep "abc" -f data3.txt
+Time: 1.99s
+Output:
+grep abc <(cat data3.txt)
+
+Command: 20. Sort the contents of data3.txt in reverse order
+Time: 2.57s
+Output:
+sort -r data3.txt > sorted_data3.txt
+
+Command: 
+Time: 1.49s
+Output:
+cat -n {filename}
+
+Command: sort -u -f data1.txt
+Time: 2.87s
+Output:
+sort -u -k 1,2 -t $'\t' data1.txt
+
+Command: 22. Show the top 15 most frequent words in data2.txt
+Time: 4.51s
+Output:
+grep -oE '\b\w+\b' data2.txt | sort | uniq -c | sort -rn | head -n 15
+
+Command: 
+Time: 1.47s
+Output:
+cat -n {filename}
+
+Command: sed 's/123/XYZ/g' -f data3.txt
+Time: 2.71s
+Output:
+sed -i 's/123/XYZ/g' data3.txt
+
+Command: 24. Count lines containing digits in data1.txt
+Time: 3.48s
+Output:
+grep -o '\b\+[0-9]\+\b' data1.txt | wc -l
+
+Command: 
+Time: 1.48s
+Output:
+cat -n {filename}
+
+Command: uniq -f data3.txt
+Time: 2.03s
+Output:
+uniq -f data3.txt | sort -n
+
+Command: 26. Display lines from data2.txt that do not contain "error"
+Time: 2.50s
+Output:
+grep -v 'error' data2.txt
+
+Command: 
+Time: 1.49s
+Output:
+cat -n {filename}
+
+Command: head -n 50 -f data3.txt
+Time: 1.76s
+Output:
+tail -f data3.txt
+
+Command: 28. Sort data2.txt by the last column in each line
+Time: 3.16s
+Output:
+sort -t $'\t' -k 4 data2.txt
+
+Command: 
+Time: 1.87s
+Output:
+cat -n {filename}
+
+Command: grep -c "x" -f data2.txt
+Time: 2.26s
+Output:
+grep -c "x" < data2.txt
+
+Command: 30. Print all lines in data3.txt that contain only numbers
+Time: 2.74s
+Output:
+grep -oE '[0-9]+' data3.txt
+

@@ -1,0 +1,89 @@
+1. List all files in the current directory
+ls
+
+2. Display the current directory path
+pwd
+
+3. Show all running processes
+ps aux
+
+4. Print the current date and time
+date
+
+5. Show the disk usage of the current directory
+du -sh .
+
+6. Display the first 10 lines of data1.txt
+head -n 10 -f data1.txt
+
+7. Display the last 10 lines of data1.txt
+tail -n 10 -f data1.txt
+
+8. Count the number of lines in data1.txt
+wc -l -f data1.txt
+
+9. Find occurrences of the word "error" in data1.txt
+grep "error" -f data1.txt
+
+10. Sort the contents of data1.txt alphabetically
+sort -f data1.txt
+
+11. Display the first 20 lines of data2.txt
+head -n 20 -f data2.txt
+
+12. Show the last 20 lines of data2.txt
+tail -n 20 -f data2.txt
+
+13. Count the number of words in data2.txt
+wc -w -f data2.txt
+
+14. Find all lines containing "123" in data2.txt
+grep "123" -f data2.txt
+
+15. Sort the contents of data2.txt numerically
+sort -n -f data2.txt
+
+16. Display the first 5 lines of data3.txt
+head -n 5 -f data3.txt
+
+17. Show the last 5 lines of data3.txt
+tail -n 5 -f data3.txt
+
+18. Count the number of characters in data3.txt
+wc -m -f data3.txt
+
+19. Find all lines containing "abc" in data3.txt
+grep "abc" -f data3.txt
+
+20. Sort the contents of data3.txt in reverse order
+sort -r -f data3.txt
+
+21. Display the contents of data1.txt without duplicate lines
+sort -u -f data1.txt
+
+22. Show the top 15 most frequent words in data2.txt
+cat data2.txt | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -n 15 -f data2.txt
+
+23. Replace "123" with "XYZ" in data3.txt and display the result
+sed 's/123/XYZ/g' -f data3.txt
+
+24. Count lines containing digits in data1.txt
+grep -c '[0-9]' -f data1.txt
+
+25. Show only unique lines from data3.txt
+uniq -f data3.txt
+
+26. Display lines from data2.txt that do not contain "error"
+grep -v "error" -f data2.txt
+
+27. Display the first 50 lines of data3.txt
+head -n 50 -f data3.txt
+
+28. Sort data2.txt by the last column in each line
+sort -k2 -f data2.txt
+
+29. Count the number of lines in data2.txt containing the letter "x"
+grep -c "x" -f data2.txt
+
+30. Print all lines in data3.txt that contain only numbers
+grep '^[0-9]*$' -f data3.txt

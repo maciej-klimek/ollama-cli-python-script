@@ -1,0 +1,227 @@
+Command: ls
+Time: 1.22s
+Output:
+ls
+
+Command: 2. Display the current directory path
+Time: 1.25s
+Output:
+pwd
+
+Command: 
+Time: 1.26s
+Output:
+Yes? What do you need assistance with?
+
+Command: ps aux
+Time: 1.47s
+Output:
+ps aux
+
+Command: 4. Print the current date and time
+Time: 1.24s
+Output:
+date +%F_%T
+
+Command: 
+Time: 1.22s
+Output:
+Please type your command.
+
+Command: du -sh .
+Time: 1.21s
+Output:
+12G    .
+
+Command: 6. Display the first 10 lines of data1.txt
+Time: 1.26s
+Output:
+head -n 10 data1.txt
+
+Command: 
+Time: 1.38s
+Output:
+Please provide a command for me to assist you.
+
+Command: tail -n 10 -f data1.txt
+Time: 1.30s
+Output:
+tail -n 10 -f data1.txt
+
+Command: 8. Count the number of lines in data1.txt
+Time: 1.26s
+Output:
+wc -l data1.txt
+
+Command: 
+Time: 1.30s
+Output:
+Yes, how can I assist you today?
+
+Command: grep "error" -f data1.txt
+Time: 1.27s
+Output:
+grep "error" data1.txt
+
+Command: 10. Sort the contents of data1.txt alphabetically
+Time: 1.35s
+Output:
+sort data1.txt
+
+Command: 
+Time: 1.33s
+Output:
+Please provide a command for me to assist you.
+
+Command: head -n 20 -f data2.txt
+Time: 1.28s
+Output:
+head: invalid option -- 'f'
+
+Command: 12. Show the last 20 lines of data2.txt
+Time: 1.31s
+Output:
+tail -n 20 data2.txt
+
+Command: 
+Time: 1.34s
+Output:
+Yes, how can I assist you today?
+
+Command: wc -w -f data2.txt
+Time: 1.53s
+Output:
+wc -w -f data2.txt
+
+Command: 14. Find all lines containing "123" in data2.txt
+Time: 1.31s
+Output:
+grep "123" data2.txt
+
+Command: 
+Time: 1.33s
+Output:
+Please enter a command.
+
+Command: sort -n -f data2.txt
+Time: 1.24s
+Output:
+sort -n -f data2.txt
+
+Command: 16. Display the first 5 lines of data3.txt
+Time: 1.60s
+Output:
+head -n 5 data3.txt
+
+Command: 
+Time: 1.33s
+Output:
+I'm here to help. What do you need assistance with?
+
+Command: tail -n 5 -f data3.txt
+Time: 1.29s
+Output:
+tail -n 5 -f data3.txt
+
+Command: 18. Count the number of characters in data3.txt
+Time: 1.30s
+Output:
+wc -m data3.txt
+
+Command: 
+Time: 1.33s
+Output:
+Yes, how can I assist you?
+
+Command: grep "abc" -f data3.txt
+Time: 1.36s
+Output:
+grep -f data3.txt "abc"
+
+Command: 20. Sort the contents of data3.txt in reverse order
+Time: 1.26s
+Output:
+sort -r data3.txt
+
+Command: 
+Time: 1.24s
+Output:
+Yes, how can I help you?
+
+Command: sort -u -f data1.txt
+Time: 1.28s
+Output:
+sort -u -f data1.txt
+
+Command: 22. Show the top 15 most frequent words in data2.txt
+Time: 1.65s
+Output:
+``
+cat data2.txt | tr -s ' ' '\n' | grep -v '^\s*$' | sort | uniq -c | sort -nr | head -n 15
+``
+
+Command: 
+Time: 1.29s
+Output:
+Please provide a command to execute.
+
+Command: sed 's/123/XYZ/g' -f data3.txt
+Time: 1.44s
+Output:
+sed -f option is not supported in sed command. You can use only -e option to specify the sed expression directly.
+
+Command: 24. Count lines containing digits in data1.txt
+Time: 1.36s
+Output:
+``bash
+grep -c '[0-9]' data1.txt
+``
+
+Command: 
+Time: 1.31s
+Output:
+Please specify a command for me to assist you.
+
+Command: uniq -f data3.txt
+Time: 1.31s
+Output:
+uniq -f data3.txt
+
+Command: 26. Display lines from data2.txt that do not contain "error"
+Time: 1.28s
+Output:
+grep -v "error" data2.txt
+
+Command: 
+Time: 1.22s
+Output:
+I am ready to assist.
+
+Command: head -n 50 -f data3.txt
+Time: 1.45s
+Output:
+head: invalid option -- 'f'
+Try 'head --help' for more information.
+
+Command: 28. Sort data2.txt by the last column in each line
+Time: 1.36s
+Output:
+sort -k1.1,1.1nr -t ',' data2.txt
+
+Command: 
+Time: 1.30s
+Output:
+Please provide a command for assistance.
+
+Command: grep -c "x" -f data2.txt
+Time: 1.40s
+Output:
+grep -c "x" -f data2.txt
+
+Command: 30. Print all lines in data3.txt that contain only numbers
+Time: 1.68s
+Output:
+``sh
+grep -E '^[0-9]+$' data3.txt
+``
+

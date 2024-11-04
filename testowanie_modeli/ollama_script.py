@@ -6,20 +6,8 @@ import time
 import itertools
 import subprocess
 
-def loading_spinner():
-    spinner = itertools.cycle(['-', '/', '|', '\\'])
-    while not stop_spinner_event.is_set():
-        sys.stdout.write(next(spinner))
-        sys.stdout.flush()
-        time.sleep(0.1)
-        sys.stdout.write('\b')
 
 def run_ollama(model_name, command, execute_flag=False, filename=None):
-    global stop_spinner_event
-    stop_spinner_event = threading.Event()
-
-    spinner_thread = threading.Thread(target=loading_spinner)
-    spinner_thread.start()
 
     if filename:
         full_command = f"File: {filename}\nCommand: {command.strip()}"
@@ -29,9 +17,6 @@ def run_ollama(model_name, command, execute_flag=False, filename=None):
     response = ollama.chat(model=model_name, messages=[
         {'role': 'user', 'content': full_command}
     ])
-
-    stop_spinner_event.set()
-    spinner_thread.join()
 
     model_output = response['message']['content'].strip()
 
@@ -45,18 +30,23 @@ def run_ollama(model_name, command, execute_flag=False, filename=None):
 
     if execute_flag:
         if contains_dangerous:
-            confirmation = input(f"The command contains a potentially dangerous operation ('rm'). Are you sure you want to execute it? (y/n): ").strip().lower()
-            if  confirmation != "y":
+            confirmation = input(
+                f"The command contains a potentially dangerous operation ('rm'). Are you sure you want to execute it? (y/n): ").strip().lower()
+            if confirmation != "y":
                 print("Command execution aborted.")
                 return
 
         subprocess.run(model_output, shell=True)
 
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run commands with Ollama and optionally execute output.")
+    parser = argparse.ArgumentParser(
+        description="Run commands with Ollama and optionally execute output.")
     parser.add_argument("command", help="Command to pass to the model.")
-    parser.add_argument("-e", "--execute", action="store_true", help="Automatically execute the command given by the model.")
-    parser.add_argument("-m", "--model", default="LlamaCLI", help="The model to use (default: LlamaCLI).")
+    parser.add_argument("-e", "--execute", action="store_true",
+                        help="Automatically execute the command given by the model.")
+    parser.add_argument("-m", "--model", default="LlamaCLI",
+                        help="The model to use (default: LlamaCLI).")
     parser.add_argument("-f", "--file", help="Specify the input filename.")
 
     args = parser.parse_args()

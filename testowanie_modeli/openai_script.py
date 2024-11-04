@@ -1,10 +1,14 @@
-import ollama
+import os
 import argparse
 import sys
 import threading
 import time
 import itertools
 import subprocess
+from openai import OpenAI
+
+client = OpenAI(api_key="oho")
+
 
 def loading_spinner():
     spinner = itertools.cycle(['-', '/', '|', '\\'])
@@ -14,26 +18,22 @@ def loading_spinner():
         time.sleep(0.1)
         sys.stdout.write('\b')
 
-def run_ollama(model_name, command, execute_flag=False, filename=None):
-    global stop_spinner_event
-    stop_spinner_event = threading.Event()
 
-    spinner_thread = threading.Thread(target=loading_spinner)
-    spinner_thread.start()
-
+def run_openai(command, execute_flag=False, filename=None):
     if filename:
         full_command = f"File: {filename}\nCommand: {command.strip()}"
     else:
         full_command = f"Command: {command.strip()}"
 
-    response = ollama.chat(model=model_name, messages=[
-        {'role': 'user', 'content': full_command}
-    ])
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a Linux terminal assistant. Your responses should be concise one-liners that can be directly pasted into the terminal, without any comments or additional text."},
+            {"role": "user", "content": full_command},
+        ]
+    )
 
-    stop_spinner_event.set()
-    spinner_thread.join()
-
-    model_output = response['message']['content'].strip()
+    model_output = completion.choices[0].message.content.strip()
 
     if model_output.startswith('`') and model_output.endswith('`'):
         model_output = model_output[1:-1].strip()
@@ -45,20 +45,24 @@ def run_ollama(model_name, command, execute_flag=False, filename=None):
 
     if execute_flag:
         if contains_dangerous:
-            confirmation = input(f"The command contains a potentially dangerous operation ('rm'). Are you sure you want to execute it? (y/n): ").strip().lower()
-            if  confirmation != "y":
+            confirmation = input(
+                "The command contains a potentially dangerous operation ('rm'). Are you sure you want to execute it? (y/n): ").strip().lower()
+            if confirmation != "y":
                 print("Command execution aborted.")
                 return
 
         subprocess.run(model_output, shell=True)
 
+
+# Main parser
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run commands with Ollama and optionally execute output.")
+    parser = argparse.ArgumentParser(
+        description="Run commands with OpenAI and optionally execute output.")
     parser.add_argument("command", help="Command to pass to the model.")
-    parser.add_argument("-e", "--execute", action="store_true", help="Automatically execute the command given by the model.")
-    parser.add_argument("-m", "--model", default="LlamaCLI", help="The model to use (default: LlamaCLI).")
+    parser.add_argument("-e", "--execute", action="store_true",
+                        help="Automatically execute the command given by the model.")
     parser.add_argument("-f", "--file", help="Specify the input filename.")
 
     args = parser.parse_args()
 
-    run_ollama(args.model, args.command, args.execute, filename=args.file)
+    run_openai(args.command, args.execute, filename=args.file)

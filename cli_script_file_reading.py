@@ -40,7 +40,6 @@ def run_ollama(model_name, command, execute_flag=False, filename=None, file_cont
 
     print(model_output)
 
-    # Check for potentially dangerous commands (e.g., rm)
     dangerous_commands = ['rm', 'rmdir', 'sudo rm']
     contains_dangerous = any(cmd in model_output for cmd in dangerous_commands)
 
