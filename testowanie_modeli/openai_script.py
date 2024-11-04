@@ -10,15 +10,6 @@ from openai import OpenAI
 client = OpenAI(api_key="oho")
 
 
-def loading_spinner():
-    spinner = itertools.cycle(['-', '/', '|', '\\'])
-    while not stop_spinner_event.is_set():
-        sys.stdout.write(next(spinner))
-        sys.stdout.flush()
-        time.sleep(0.1)
-        sys.stdout.write('\b')
-
-
 def run_openai(command, execute_flag=False, filename=None):
     if filename:
         full_command = f"File: {filename}\nCommand: {command.strip()}"
