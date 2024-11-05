@@ -87,3 +87,5 @@ grep -c "x" -f data2.txt
 
 30. Print all lines in data3.txt that contain only numbers
 grep '^[0-9]*$' -f data3.txt
+
+31. Show enivronment variables

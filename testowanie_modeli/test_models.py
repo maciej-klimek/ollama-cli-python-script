@@ -1,20 +1,19 @@
 import subprocess
 import time
+import csv
 
 openai_script_path = "./openai_script.py"
 ollama_script_path = "./ollama_script.py"
 
 command_file = "commands.txt"
-openai_result_file = "openai_result.txt"
-ollama_result_file = "ollama_result.txt"
-
+openai_result_file = "openai_result.csv"
+ollama_result_file = "ollama_result.csv"
 
 
 def run_script(script_path, command, file_flag=None):
     args = ["python3", script_path, command]
     if file_flag:
         args.extend(["-f", file_flag])
-
     start_time = time.time()
     try:
         result = subprocess.run(
@@ -31,25 +30,33 @@ def run_script(script_path, command, file_flag=None):
 with open(command_file, "r") as f:
     commands = f.readlines()
 
-with open(openai_result_file, "w") as openai_out, open(ollama_result_file, "w") as ollama_out:
-    for i, line in enumerate(commands):
-        if i % 2 != 0:
-            command = line.strip()
+# Write headers and results to CSV files for openai and ollama
+with open(openai_result_file, "w", newline="") as openai_out, open(ollama_result_file, "w", newline="") as ollama_out:
+    openai_writer = csv.writer(openai_out)
+    ollama_writer = csv.writer(ollama_out)
 
-            file_flag = None
-            if command.endswith("small_test.txt"):
-                file_flag = "small_test.txt"
-            elif command.endswith("large_test.txt"):
-                file_flag = "large_test.txt"
+    # Write headers
+    openai_writer.writerow(["Command", "Time (s)", "Output"])
+    ollama_writer.writerow(["Command", "Time (s)", "Output"])
 
-            print(f"Running openai_script.py for command {i // 2 + 1}")
-            openai_output, openai_time = run_script(
-                openai_script_path, command, file_flag)
-            openai_out.write(
-                f"Command: {command}\nTime: {openai_time:.2f}s\nOutput:\n{openai_output}\n\n")
+    # Loop to get every third line for each command
+    for i, line in enumerate(commands[::3]):
+        command = line.strip()
 
-            print(f"Running ollama_script.py for command {i // 2 + 1}")
-            ollama_output, ollama_time = run_script(
-                ollama_script_path, command, file_flag)
-            ollama_out.write(
-                f"Command: {command}\nTime: {ollama_time:.2f}s\nOutput:\n{ollama_output}\n\n")
+        file_flag = None
+        if command.endswith("small_test.txt"):
+            file_flag = "small_test.txt"
+        elif command.endswith("large_test.txt"):
+            file_flag = "large_test.txt"
+
+        # Run and log openai_script.py
+        # print(f"Running openai_script.py for command {i + 1}")
+        # openai_output, openai_time = run_script(
+        #     openai_script_path, command, file_flag)
+        # openai_writer.writerow([command, f"{openai_time:.2f}", openai_output])
+
+        # Run and log ollama_script.py
+        print(f"Running ollama_script.py for command {i + 1}")
+        ollama_output, ollama_time = run_script(
+            ollama_script_path, command, file_flag)
+        ollama_writer.writerow([command, f"{ollama_time:.2f}", ollama_output])
