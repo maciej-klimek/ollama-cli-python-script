@@ -88,4 +88,62 @@ grep -c "x" -f data2.txt
 30. Print all lines in data3.txt that contain only numbers
 grep '^[0-9]*$' -f data3.txt
 
-31. Show enivronment variables
+31. Find all lines in data1.txt that contain the word "critical" and display them along with 2 lines of context before and after.
+grep -C 2 "critical" data1.txt
+
+32: Display only the last 20 lines of data4.log that contain the word "warning", ignoring case.
+grep -i "warning" data4.log | tail -n 20
+
+33: Remove all empty lines from the file data3.txt.
+sed '/^$/d' data3.txt
+
+34: Count the number of words in the file data2.txt that start with the letter "a".
+grep -o '\ba\w*' data2.txt | wc -l
+
+35: Display unique words from the file data5.txt, sorted alphabetically, each on a new line.
+tr ' ' '\n' < data5.txt | sort -u
+
+36: Display lines from data1.txt that contain email addresses.
+grep -E '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}' data1.txt
+
+37: Find all unique values from the third column of data2.csv, assuming columns are separated by commas.
+cut -d ',' -f 3 data2.csv | sort -u
+
+38: Sort the lines in data6.txt by the number of words in each line, from least to most.
+awk '{print NF, $0}' data6.txt | sort -n | cut -d ' ' -f2-
+
+39: In the file data3.txt, replace all occurrences of "foo" with the word "bar" and save the result to a new file data3_updated.txt.
+sed 's/foo/bar/g' data3.txt > data3_updated.txt
+
+40: Find the lines in data2.txt that contain the word "fail" and display their line numbers.
+grep -n "fail" data2.txt
+
+41: Display the five most frequent words in data5.txt along with their occurrence counts.
+tr -s ' ' '\n' < data5.txt | sort | uniq -c | sort -nr | head -n 5
+
+42: Display lines from data3.txt that start with a number and end with the letter "a".
+grep '^[0-9].*a$' data3.txt
+
+43: Merge the lines of data1.txt and data2.txt such that the result alternates lines from both files.
+paste -d '\n' data1.txt data2.txt
+
+44: Find the longest line in data6.txt in terms of the number of characters and display its contents.
+awk '{ if (length > max) { max = length; longest = $0 } } END { print longest }' data6.txt
+
+45: Count the number of files in the logs directory that have the .log extension.
+find logs -type f -name '*.log' | wc -l
+
+46: Search in the file data7.csv for lines that have exactly 5 fields separated by commas.
+awk -F, 'NF==5' data7.csv
+
+47: Display the names of all processes that use more than 100 MB of RAM.
+ps aux | awk '$6 > 102400 {print $11}'
+
+48: Display lines from the file data8.txt that contain integers divisible by 7.
+grep -E '\b[0-9]+\b' data8.txt | awk '{for(i=1;i<=NF;i++) if ($i ~ /^[0-9]+$/ && $i % 7 == 0) print}'
+
+49: Display the last modification date for each file in the data_logs directory, sorting them by modification time.
+ls -lt --time=modify data_logs
+
+50: Display the last 10 lines from the file data9.txt, preceded by their line numbers.
+tail -n 10 data9.txt | nl
